@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Peluquería & Barbería</title>
+    </head>
+    <body>
+        <nav>
+            <a style="margin-right: 10px" href="{% url "inicio" %}">Inicio</a>
+            <a style="margin-right: 10px" href="{% url "crear_profesional" %}">Crear Profesional</a>
+            <a style="margin-right: 10px" href="{% url "listado_profesionales" %}">Profesionales</a>
+            <a style="margin-right: 10px" href="{% url "crear_corte_pelo" %}">Crear Corte de Pelo</a>
+            <a style="margin-right: 10px" href="{% url "listado_cortes_pelo" %}">Cortes de Pelo</a>
+            <a style="margin-right: 10px" href="{% url "crear_cliente" %}">Crear Cliente</a>
+            <a href="{% url "listado_clientes" %}">Clientes</a>
+        </nav>
+        <h1>Listado de Cortes de Pelo</h1>
+        <ul>
+            {% if cortes_pelo %}
+                {% for corte_pelo in cortes_pelo %}
+                    <li>{{corte_pelo}}</li>
+                {% endfor %}
+            {% else %}
+                <p>No hay Cortes de Pelos cargados aún.</p>
+            {% endif %}            
+        </ul>
+    </body>
+</html>
