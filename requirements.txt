@@ -1,4 +1,7 @@
 asgiref==3.8.1
 Django==5.2
+ModeloDeClientesConcesionaria @ file:///C:/Users/Vburatto/Documents/TuModeloDeClientes%2BBuratto/dist/ModeloDeClientesConcesionaria-1.0.tar.gz#sha256=bebb6f41c016b897b0cad1b7292a98f247d958645960ee19976b4be00eda3807
+pillow==11.2.1
+setuptools==76.0.0
 sqlparse==0.5.3
 tzdata==2025.2

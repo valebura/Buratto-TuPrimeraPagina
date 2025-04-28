@@ -5,6 +5,8 @@ from home.models import Profesional, CortePelo, Cliente
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 def inicio(request):
     return render(request, 'inicio.html')
@@ -12,6 +14,7 @@ def inicio(request):
 
 # --------------- PROFESIONALES ---------------
 
+@login_required
 def crear_profesional(request):
     
     if request.method == "POST":
@@ -29,13 +32,13 @@ class DetalleProfesional(DetailView):
     model = Profesional
     template_name = "profesionales/detalle_profesional.html"
 
-class ModificarProfesional(UpdateView):
+class ModificarProfesional(LoginRequiredMixin, UpdateView):
     model = Profesional
     template_name = "profesionales/modificar_profesional.html"
     fields = ["nombre", "apellido", "anos_experiencia"]
     success_url = reverse_lazy("listado_profesionales")
 
-class EliminarProfesional(DeleteView):
+class EliminarProfesional(LoginRequiredMixin, DeleteView):
     model = Profesional
     template_name = "profesionales/eliminar_profesional.html"
     success_url = reverse_lazy("listado_profesionales")
@@ -48,6 +51,7 @@ def listado_profesionales(request):
 
 # --------------- CORTES DE PELO ---------------
 
+@login_required
 def crear_corte_pelo(request):
     
     if request.method == "POST":
@@ -66,13 +70,13 @@ class DetalleCortePelo(DetailView):
     model = CortePelo
     template_name = "cortes_pelo/detalle_corte_pelo.html"
 
-class ModificarCortePelo(UpdateView):
+class ModificarCortePelo(LoginRequiredMixin, UpdateView):
     model = CortePelo
     template_name = "cortes_pelo/modificar_corte_pelo.html"
     fields = ["nombre", "precio", "tiempo"]
     success_url = reverse_lazy("listado_cortes_pelo")
 
-class EliminarCortePelo(DeleteView):
+class EliminarCortePelo(LoginRequiredMixin, DeleteView):
     model = CortePelo
     template_name = "cortes_pelo/eliminar_corte_pelo.html"
     success_url = reverse_lazy("listado_cortes_pelo")
@@ -85,6 +89,7 @@ def listado_cortes_pelo(request):
 
 # --------------- CLIENTES ---------------
 
+@login_required
 def crear_cliente(request):
     
     if request.method == "POST":
@@ -103,13 +108,13 @@ class DetalleCliente(DetailView):
     model = Cliente
     template_name = "clientes/detalle_cliente.html"
 
-class ModificarCliente(UpdateView):
+class ModificarCliente(LoginRequiredMixin, UpdateView):
     model = Cliente
     template_name = "clientes/modificar_cliente.html"
     fields = ["nombre", "apellido", "email"]
     success_url = reverse_lazy("listado_clientes")
 
-class EliminarCliente(DeleteView):
+class EliminarCliente(LoginRequiredMixin, DeleteView):
     model = Cliente
     template_name = "clientes/eliminar_cliente.html"
     success_url = reverse_lazy("listado_clientes")
