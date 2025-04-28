@@ -2,26 +2,26 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from home.forms import CreacionProfesional, CreacionCortePelo, CreacionCliente
 from home.models import Profesional, CortePelo, Cliente
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 def inicio(request):
     return render(request, 'inicio.html')
 
 def listado_profesionales(request):
     profesionales = Profesional.objects.all()
-    return render(request, 'listado_profesionales.html', {'profesionales': profesionales})
+    return render(request, 'profesionales/listado_profesionales.html', {'profesionales': profesionales})
 
 def listado_cortes_pelo(request):
     cortes_pelo = CortePelo.objects.all()
-    return render(request, 'listado_cortes_pelo.html', {'cortes_pelo': cortes_pelo})
+    return render(request, 'cortes_pelo/listado_cortes_pelo.html', {'cortes_pelo': cortes_pelo})
 
 def listado_clientes(request):
     clientes = Cliente.objects.all()
-    return render(request, 'listado_clientes.html', {'clientes': clientes})
+    return render(request, 'clientes/listado_clientes.html', {'clientes': clientes})
 
 def crear_profesional(request):
-    
-    print(request.GET)
-    print(request.POST)
     
     if request.method == "POST":
         formulario = CreacionProfesional(request.POST)
@@ -33,12 +33,9 @@ def crear_profesional(request):
     else:
         formulario = CreacionProfesional()
         
-    return render(request, 'crear_profesional.html', {'formulario': formulario})
+    return render(request, 'profesionales/crear_profesional.html', {'formulario': formulario})
 
 def crear_corte_pelo(request):
-    
-    print(request.GET)
-    print(request.POST)
     
     if request.method == "POST":
         formulario = CreacionCortePelo(request.POST)
@@ -50,12 +47,9 @@ def crear_corte_pelo(request):
     else:
         formulario = CreacionCortePelo()
         
-    return render(request, 'crear_corte_pelo.html', {'formulario': formulario})
+    return render(request, 'cortes_pelo/crear_corte_pelo.html', {'formulario': formulario})
 
 def crear_cliente(request):
-    
-    print(request.GET)
-    print(request.POST)
     
     if request.method == "POST":
         formulario = CreacionCliente(request.POST)
@@ -67,4 +61,23 @@ def crear_cliente(request):
     else:
         formulario = CreacionCliente()
         
-    return render(request, 'crear_cliente.html', {'formulario': formulario})
+    return render(request, 'clientes/crear_cliente.html', {'formulario': formulario})
+
+def detalle_profesional (request, profesional_especifico):
+    profesional = Profesional.objects.get(id=profesional_especifico)
+    return render(request, 'profesionales/detalle_profesional.html', {'profesional': profesional})
+
+class DetalleProfesional(DetailView):
+    model = Profesional
+    template_name = "profesionales/detalle_profesional.html"
+
+class ModificarProfesional(UpdateView):
+    model = Profesional
+    template_name = "profesionales/modificar_profesional.html"
+    fields = ["nombre" , "apellido", "anos_experiencia"]
+    success_url = reverse_lazy("listado_profesionales")
+
+class EliminarProfesional(DeleteView):
+    model = Profesional
+    template_name = "profesionales/eliminar_profesional.html"
+    success_url = reverse_lazy("listado_profesionales")

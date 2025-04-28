@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<h1>Eliminar {{ profesional.nombre }} {{ profesional.apellido }}</h1>
+<form action="{% url "eliminar_profesional" profesional.id %}" method="POST">
+    {% csrf_token %}
+    {{form}}
+    <p>¿Desea eliminar el Profesional?</p>
+    <input type="submit" value="Confirmar eliminación">
+</form>
+{% endblock contenido %}
