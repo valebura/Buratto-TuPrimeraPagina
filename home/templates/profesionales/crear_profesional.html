@@ -2,7 +2,7 @@
 
 {% block contenido %}
 <h1>Crear Profesional</h1>
-<form action="{% url "crear_profesional" %}" method="POST">
+<form action="{% url "crear_profesional" %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{formulario}}
     <input type="submit" value="Crear" style="margin-top: 20px">

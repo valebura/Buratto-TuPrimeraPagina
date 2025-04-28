@@ -4,6 +4,8 @@ class Profesional(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     anos_experiencia = models.IntegerField()
+    avatar = models.ImageField(upload_to="profesionales", null=True, blank=True)
+    fecha_ingreso = models.DateField(null=True, blank=True)
     
     def __str__(self):
         unidad = "Año" if self.anos_experiencia == 1 else "Años"

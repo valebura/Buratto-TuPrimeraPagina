@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<h1>Perfil de {{ usuario.first_name }} {{ usuario.last_name }}</h1>
+<p><strong>Usuario:</strong> {{ usuario.username }}</p>
+<p><strong>Email:</strong> {{ usuario.email }}</p>
+
+{% if infoextra.fecha_nacimiento %}
+    <p><strong>Fecha de nacimiento:</strong> {{ infoextra.fecha_nacimiento|date:"d/m/Y" }}</p>
+{% endif %}
+
+{% if infoextra.avatar %}
+    <p><strong>Avatar:</strong> <img src="{{ infoextra.avatar.url }}" alt="Avatar" height="100px"></p>
+{% endif %}
+
+{% endblock contenido %}

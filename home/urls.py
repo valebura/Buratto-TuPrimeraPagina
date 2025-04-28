@@ -5,6 +5,8 @@ from home.views import (
     crear_corte_pelo, DetalleCortePelo, ModificarCortePelo, EliminarCortePelo, listado_cortes_pelo, 
     crear_cliente, DetalleCliente, ModificarCliente, EliminarCliente, listado_clientes
 )
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('', inicio, name='inicio'),
@@ -29,4 +31,4 @@ urlpatterns = [
     path('clientes/<int:pk>', DetalleCliente.as_view(), name='detalle_cliente'),
     path('clientes/<int:pk>/modificar', ModificarCliente.as_view(), name='modificar_cliente'),
     path('clientes/<int:pk>/eliminar', EliminarCliente.as_view(), name='eliminar_cliente'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

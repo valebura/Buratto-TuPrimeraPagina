@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from home.forms import CreacionProfesional, CreacionCortePelo, CreacionCliente
+from home.forms import CreacionProfesional, CreacionCortePelo, CreacionCliente, FormularioModificarProfesional
 from home.models import Profesional, CortePelo, Cliente
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
@@ -18,24 +18,31 @@ def inicio(request):
 def crear_profesional(request):
     
     if request.method == "POST":
-        formulario = CreacionProfesional(request.POST)
+        formulario = CreacionProfesional(request.POST, request.FILES)
         if formulario.is_valid():
             info = formulario.cleaned_data
-            profesional = Profesional(nombre=info.get('nombre'), apellido=info.get('apellido'), anos_experiencia=info.get('anos_experiencia'))
+            profesional = Profesional(
+                nombre = info.get('nombre'),
+                apellido = info.get('apellido'),
+                anos_experiencia = info.get('anos_experiencia'),
+                avatar = info.get('avatar'),
+                fecha_ingreso = info.get('fecha_ingreso')
+            )
             profesional.save()
             return redirect('listado_profesionales')
     else:
         formulario = CreacionProfesional()
         
     return render(request, 'profesionales/crear_profesional.html', {'formulario': formulario})
+
 class DetalleProfesional(DetailView):
     model = Profesional
     template_name = "profesionales/detalle_profesional.html"
 
 class ModificarProfesional(LoginRequiredMixin, UpdateView):
     model = Profesional
+    form_class = FormularioModificarProfesional
     template_name = "profesionales/modificar_profesional.html"
-    fields = ["nombre", "apellido", "anos_experiencia"]
     success_url = reverse_lazy("listado_profesionales")
 
 class EliminarProfesional(LoginRequiredMixin, DeleteView):
