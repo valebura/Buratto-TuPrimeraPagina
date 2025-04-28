@@ -2,7 +2,7 @@
 
 {% block contenido %}
 <h1>Listado de Profesionales</h1>
-<p><a style="margin-right: 10px" href="{% url "crear_profesional" %}">Crear Profesional</a></p>
+<p><a href="{% url "crear_profesional" %}">Crear Profesional</a></p>
 <ul>
     {% if profesionales %}
         {% for profesional in profesionales %}

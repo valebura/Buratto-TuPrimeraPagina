@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<h1>Eliminar {{ object.nombre }} {{ object.apellido }}</h1>
+<form action="{% url "eliminar_corte_pelo" object.id %}" method="POST">
+    {% csrf_token %}
+    {{form}}
+    <p>¿Desea eliminar el Corte de Pelo?</p>
+    <input type="submit" value="Confirmar eliminación">
+</form>
+{% endblock contenido %}

@@ -9,6 +9,8 @@
         <nav>
             <a style="margin-right: 10px" href="{% url "inicio" %}">Inicio</a>
             <a style="margin-right: 10px" href="{% url "listado_profesionales" %}">Profesionales</a>
+            <a style="margin-right: 10px" href="{% url "listado_cortes_pelo" %}">Cortes de Pelo</a>
+            <a href="{% url "listado_clientes" %}">Clientes</a>
         </nav>
         {% block contenido %}{% endblock contenido %}
     </body>

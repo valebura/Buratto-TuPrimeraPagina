@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<h1>Eliminar {{ cliente.nombre }} {{ cliente.apellido }}</h1>
+<form action="{% url "eliminar_cliente" cliente.id %}" method="POST">
+    {% csrf_token %}
+    {{form}}
+    <p>¿Desea eliminar el Cliente?</p>
+    <input type="submit" value="Confirmar eliminación">
+</form>
+{% endblock contenido %}

@@ -9,17 +9,8 @@ from django.urls import reverse_lazy
 def inicio(request):
     return render(request, 'inicio.html')
 
-def listado_profesionales(request):
-    profesionales = Profesional.objects.all()
-    return render(request, 'profesionales/listado_profesionales.html', {'profesionales': profesionales})
 
-def listado_cortes_pelo(request):
-    cortes_pelo = CortePelo.objects.all()
-    return render(request, 'cortes_pelo/listado_cortes_pelo.html', {'cortes_pelo': cortes_pelo})
-
-def listado_clientes(request):
-    clientes = Cliente.objects.all()
-    return render(request, 'clientes/listado_clientes.html', {'clientes': clientes})
+# --------------- PROFESIONALES ---------------
 
 def crear_profesional(request):
     
@@ -34,6 +25,28 @@ def crear_profesional(request):
         formulario = CreacionProfesional()
         
     return render(request, 'profesionales/crear_profesional.html', {'formulario': formulario})
+class DetalleProfesional(DetailView):
+    model = Profesional
+    template_name = "profesionales/detalle_profesional.html"
+
+class ModificarProfesional(UpdateView):
+    model = Profesional
+    template_name = "profesionales/modificar_profesional.html"
+    fields = ["nombre", "apellido", "anos_experiencia"]
+    success_url = reverse_lazy("listado_profesionales")
+
+class EliminarProfesional(DeleteView):
+    model = Profesional
+    template_name = "profesionales/eliminar_profesional.html"
+    success_url = reverse_lazy("listado_profesionales")
+    
+def listado_profesionales(request):
+    profesionales = Profesional.objects.all()
+    return render(request, 'profesionales/listado_profesionales.html', {'profesionales': profesionales})
+    
+
+
+# --------------- CORTES DE PELO ---------------
 
 def crear_corte_pelo(request):
     
@@ -49,6 +62,29 @@ def crear_corte_pelo(request):
         
     return render(request, 'cortes_pelo/crear_corte_pelo.html', {'formulario': formulario})
 
+class DetalleCortePelo(DetailView):
+    model = CortePelo
+    template_name = "cortes_pelo/detalle_corte_pelo.html"
+
+class ModificarCortePelo(UpdateView):
+    model = CortePelo
+    template_name = "cortes_pelo/modificar_corte_pelo.html"
+    fields = ["nombre", "precio", "tiempo"]
+    success_url = reverse_lazy("listado_cortes_pelo")
+
+class EliminarCortePelo(DeleteView):
+    model = CortePelo
+    template_name = "cortes_pelo/eliminar_corte_pelo.html"
+    success_url = reverse_lazy("listado_cortes_pelo")
+
+def listado_cortes_pelo(request):
+    cortes_pelo = CortePelo.objects.all()
+    return render(request, 'cortes_pelo/listado_cortes_pelo.html', {'cortes_pelo': cortes_pelo})
+
+
+
+# --------------- CLIENTES ---------------
+
 def crear_cliente(request):
     
     if request.method == "POST":
@@ -63,21 +99,21 @@ def crear_cliente(request):
         
     return render(request, 'clientes/crear_cliente.html', {'formulario': formulario})
 
-def detalle_profesional (request, profesional_especifico):
-    profesional = Profesional.objects.get(id=profesional_especifico)
-    return render(request, 'profesionales/detalle_profesional.html', {'profesional': profesional})
+class DetalleCliente(DetailView):
+    model = Cliente
+    template_name = "clientes/detalle_cliente.html"
 
-class DetalleProfesional(DetailView):
-    model = Profesional
-    template_name = "profesionales/detalle_profesional.html"
+class ModificarCliente(UpdateView):
+    model = Cliente
+    template_name = "clientes/modificar_cliente.html"
+    fields = ["nombre", "apellido", "email"]
+    success_url = reverse_lazy("listado_clientes")
 
-class ModificarProfesional(UpdateView):
-    model = Profesional
-    template_name = "profesionales/modificar_profesional.html"
-    fields = ["nombre" , "apellido", "anos_experiencia"]
-    success_url = reverse_lazy("listado_profesionales")
+class EliminarCliente(DeleteView):
+    model = Cliente
+    template_name = "clientes/eliminar_cliente.html"
+    success_url = reverse_lazy("listado_clientes")
 
-class EliminarProfesional(DeleteView):
-    model = Profesional
-    template_name = "profesionales/eliminar_profesional.html"
-    success_url = reverse_lazy("listado_profesionales")
+def listado_clientes(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'clientes/listado_clientes.html', {'clientes': clientes})
