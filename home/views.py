@@ -129,3 +129,6 @@ class EliminarCliente(LoginRequiredMixin, DeleteView):
 def listado_clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'clientes/listado_clientes.html', {'clientes': clientes})
+
+def acerca_de_mi(request):
+    return render(request, 'acerca_de_mi.html')

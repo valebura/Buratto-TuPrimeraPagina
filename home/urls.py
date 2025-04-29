@@ -1,6 +1,6 @@
 from django.urls import path
 from home.views import (
-    inicio, 
+    inicio, acerca_de_mi,
     crear_profesional, DetalleProfesional, ModificarProfesional, EliminarProfesional, listado_profesionales, 
     crear_corte_pelo, DetalleCortePelo, ModificarCortePelo, EliminarCortePelo, listado_cortes_pelo, 
     crear_cliente, DetalleCliente, ModificarCliente, EliminarCliente, listado_clientes
@@ -10,6 +10,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('', inicio, name='inicio'),
+    path('acerca_de_mi/', acerca_de_mi, name='acerca_de_mi'),
     
     # Profesionales
     path('profesionales/', listado_profesionales, name='listado_profesionales'),
