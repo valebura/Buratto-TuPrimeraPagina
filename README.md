@@ -1,6 +1,8 @@
 💈 Barbería Manager
 Este es un sistema web desarrollado en Django orientado a la gestión de una barbería. Permite registrar y administrar profesionales, cortes de pelo y clientes, junto con funcionalidades de autenticación de usuarios y edición de perfil.
 
+🎥 [Ver demostración del sistema](https://youtu.be/ceCzYctoWg0)
+
 ✂️ Funcionalidades principales
 
 🔐 Usuarios
